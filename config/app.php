@@ -39,13 +39,15 @@ function edit_buku($post)
     global $db;
     $id = strip_tags($post['id_buku']);
     $judul = strip_tags($post['judul']);
-    $pengarang = strip_tags($post['pengarang']);
+    $penulis = strip_tags($post['penulis']);
     $penerbit = strip_tags($post['penerbit']);
     $tahun_terbit = strip_tags($post['tahun_terbit']);
 
     // Query MYSQL edit
-    $query = "UPDATE buku SET judul
-    = '$judul', pengarang = '$pengarang', penerbit = '$penerbit', tahun_terbit = '$tahun_terbit' WHERE id_buku = $id";
-    mysqli_query($db, $query);
-    return mysqli_affected_rows($db);
+    $stmt = $db->prepare("UPDATE buku SET judul = ?, penulis = ?, penerbit = ?, tahun_terbit = ? WHERE id_buku = ?");
+    $stmt->bind_param("ssssi", $judul, $penulis, $penerbit, $tahun_terbit, $id);
+    $stmt->execute();
+    $affected_rows = $stmt->affected_rows;
+    $stmt->close();
+    return $affected_rows;
 }
