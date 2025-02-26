@@ -95,7 +95,6 @@ include '../config/controller.php';
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 </nav>
                             </div>
-                            
                         </div>
                     </div>
                 </nav>
@@ -113,59 +112,10 @@ include '../config/controller.php';
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-bordered">
                                     <div class="d-flex justify-content-end mb-3">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahBukuModal">Tambah Buku</button>
+                                        <a href="tambah_buku.php" class="btn btn-primary">Tambah Buku</a>
                                     </div>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="tambahBukuModal" tabindex="-1" aria-labelledby="tambahBukuModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="tambahBukuModalLabel">Tambah Buku</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <?php
-                                                    if (isset($_POST['tambah_buku'])) {
-                                                        if (add_buku($_POST) > 0) {
-                                                            echo "<script>
-                                                            alert('Data berhasil ditambahkan.');
-                                                            document.location.href='index.php';</script>";
-                                                        } else {
-                                                            echo "<script>
-                                                            alert('Data gagal ditambahkan.');
-                                                            document.location.href='index.php';</script>";
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <form action="index.php" method="POST">
-                                                        <div class="mb-3">
-                                                            <label for="judul" class="form-label">Judul</label>
-                                                            <input type="text" class="form-control" id="judul" name="judul" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="penulis" class="form-label">Penulis</label>
-                                                            <input type="text" class="form-control" id="penulis" name="penulis" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="penerbit" class="form-label">Penerbit</label>
-                                                            <input type="text" class="form-control" id="penerbit" name="penerbit" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="tahun" class="form-label">Tahun Terbit</label>
-                                                            <input type="number" class="form-control" id="tahun" name="tahun" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="stok" class="form-label">Stok</label>
-                                                            <input type="number" class="form-control" id="stok" name="stok" required>
-                                                        </div>
-                                                        <button type="submit" name="tambah_buku" class="btn btn-primary">Tambah</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <thead>
+                                    
+                                        <thead>
                                         <tr>
                                             <th>Judul</th>
                                             <th>Penulis</th>
@@ -173,6 +123,7 @@ include '../config/controller.php';
                                             <th>Tahun Terbit</th>
                                             <th>Stok</th>
                                             <th>Status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -190,6 +141,10 @@ include '../config/controller.php';
                                                         <td>" . (isset($row["tahun_terbit"]) ? $row["tahun_terbit"] : '') . "</td>
                                                         <td>" . (isset($row["stok"]) ? $row["stok"] : '') . "</td>
                                                         <td>" . (isset($row["status"]) ? $row["status"] : '') . "</td>
+                                                        <td>
+                                                            <a href='edit_buku.php?id=" . $row['id_buku'] . "' class='btn btn-info'>Edit</a>
+                                                            <a href='hapus_buku.php?id=" . $row['id_buku'] . "' class='btn btn-danger'>Hapus</a>
+                                                        </td>
                                                     </tr>";
                                                 }
                                             } else {
@@ -223,3 +178,5 @@ include '../config/controller.php';
         <script src="js/datatables-simple-demo.js"></script>
     </body>
 </html>
+
+                                            

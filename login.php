@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($level == 'petugas') {
                     echo "<script>
                     alert('Login sukses. Selamat datang, Admin');
-                    document.location.href='admin/index.php';</script>";
+                    document.location.href='petugas/index.php';</script>";
                 } elseif ($level == 'pengunjung') {
                     echo "<script>
                     alert('Login sukses! Selamat Datang di UniLibrary.');
@@ -67,7 +67,7 @@ $db->close();
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Login - SB Admin</title>
+        <title>Login Perpustakaan</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>    

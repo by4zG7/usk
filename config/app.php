@@ -5,15 +5,22 @@ include "koneksi.php";
 function add_buku($post)
 {
     global $db;
-    $id_buku = strip_tags($post['id_buku']);
-    $judul = strip_tags($post['judul']);
-    $penulis = strip_tags($post['pengarang']);
-    $penerbit = strip_tags($post['penerbit']);
-    $tahun_terbit = strip_tags($post['tahun_terbit']);
- 
-    $query = "INSERT INTO buku (id_buku, judul, penulis, penerbit, tahun_terbit) VALUES ('$id_buku', '$judul', '$penulis', '$penerbit', '$tahun_terbit'";
-    mysqli_query($db, $query);
-    return mysqli_affected_rows($db);
+    $judul = $post['judul'] ?? '';
+    $penulis = $post['pengarang'] ?? '';
+    $penerbit = $post['penerbit'] ?? '';
+    $tahun_terbit = isset($post['tahun_terbit']) && is_numeric($post['tahun_terbit']) ? (int)$post['tahun_terbit'] : null;
+    $stok = isset($post['stok']) && is_numeric($post['stok']) ? (int)$post['stok'] : 0;
+
+    if ($tahun_terbit === null) {
+        throw new InvalidArgumentException("tahun_terbit is required and must be an integer.");
+    }
+
+    $query = "INSERT INTO buku (judul, penulis, penerbit, tahun_terbit, stok) VALUES ('$judul', '$penulis', '$penerbit', '$tahun_terbit', '$stok')";
+    if (mysqli_query($db, $query)) {
+        return mysqli_affected_rows($db);
+    } else {
+        throw new mysqli_sql_exception("Error: " . $query . "<br>" . mysqli_error($db));
+    }
 }
 
 function delete_buku($id)
