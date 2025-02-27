@@ -6,10 +6,10 @@ if (isset($_GET['id'])) {
     if (delete_buku($id) > 0) {
         echo "<script>
         alert('Data berhasil dihapus.');
-        document.location.href='index.php';</script>";
+        document.location.href='index_admin.php';</script>";
     } else {
         echo "<script>
         alert('Data gagal dihapus.');
-        document.location.href='index.php';</script>";
+        document.location.href='index_admin.php';</script>";
     }
 }

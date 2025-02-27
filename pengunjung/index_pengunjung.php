@@ -2,9 +2,9 @@
 session_start(); // Mulai session login
 if (isset($_SESSION['level'])) { 
     if ($_SESSION['level'] == 1) { // Jika level 1 = Admin - level 2 = pengunjung
-        header("Location: petugas/index.php");
+        header("Location: petugas/index_databuku.php");
     } elseif ($_SESSION['level'] == 2) {
-        header("Location: pengunjung/index.php");
+        header("Location: pengunjung/index_pengunjung.php");
     }
     exit();
 }
@@ -39,7 +39,6 @@ include '../config/controller.php';
                 </div>
             </form>
             <div class="small" style="color: white">
-                Selamat datang, 
                 <?php
                 $conn = mysqli_connect('localhost', 'root', '', 'perpustakaan');
                 if (!$conn) {
@@ -60,13 +59,11 @@ include '../config/controller.php';
                 ?>
             </div>
             <div class="sb-sidenav-footer">
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="../login.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -77,20 +74,10 @@ include '../config/controller.php';
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="../pengunjung/index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                            <a class="nav-link" href="../pengunjung/index_pengunjung.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                Peminjaman
                             </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.php">Static Navigation</a>
-                                </nav>
-                            </div>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 </nav>
@@ -102,26 +89,46 @@ include '../config/controller.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="display-8 mt-4 fw-bolder">
+                            Selamat Datang,
+                            <?php
+                            $conn = mysqli_connect('localhost', 'root', '', 'perpustakaan');
+                            if (!$conn) {
+                                die("Connection failed: " . mysqli_connect_error());
+                            }
+
+                            $user_id = $_SESSION['user_id'];
+                            $sql = "SELECT username FROM users WHERE id = $user_id";
+                            $result = mysqli_query($conn, $sql);
+
+                            if ($row = mysqli_fetch_assoc($result)) {
+                                echo $row['username'];
+                            } else {
+                                echo 'Guest';
+                            }
+
+                            mysqli_close($conn);
+                            ?>
+                        </h1>
+                        <p style="font-size: large;">Mau pinjam buku apa?</p>
                         <br>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-bordered">
                                     <div class="d-flex justify-content-end mb-3">
-                                        <a href="tambah_buku.php" class="btn btn-primary">Tambah Buku</a>
+                                        
                                     </div>
                                     
                                         <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Judul</th>
                                             <th>Penulis</th>
                                             <th>Penerbit</th>
                                             <th>Tahun Terbit</th>
-                                            <th>Stok</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -139,11 +146,9 @@ include '../config/controller.php';
                                                         <td>" . (isset($row["penulis"]) ? $row["penulis"] : '') . "</td>
                                                         <td>" . (isset($row["penerbit"]) ? $row["penerbit"] : '') . "</td>
                                                         <td>" . (isset($row["tahun_terbit"]) ? $row["tahun_terbit"] : '') . "</td>
-                                                        <td>" . (isset($row["stok"]) ? $row["stok"] : '') . "</td>
                                                         <td>" . (isset($row["status"]) ? $row["status"] : '') . "</td>
                                                         <td>
-                                                            <a href='edit_buku.php?id=" . $row['id_buku'] . "' class='btn btn-info'>Edit</a>
-                                                            <a href='hapus_buku.php?id=" . $row['id_buku'] . "' class='btn btn-danger'>Hapus</a>
+                                                            <a href='?id=" . $row['id_buku'] . "' class='btn btn-success'>Pinjam</a>
                                                         </td>
                                                     </tr>";
                                                 }

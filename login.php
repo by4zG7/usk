@@ -4,9 +4,9 @@ session_start();
 // Check if already logged in
 if (isset($_SESSION['level'])) {
     if ($_SESSION['level'] == 1) {
-        header("Location: ./petugas/index.php");
+        header("Location: ./petugas/index_databuku.php");
     } elseif ($_SESSION['level'] == 2) {
-        header("Location: ./pengunjung/index.php");
+        header("Location: ./pengunjung/index_pengunjung.php");
     }
 }
 
@@ -35,11 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($level == 'petugas') {
                     echo "<script>
                     alert('Login sukses. Selamat datang, Admin');
-                    document.location.href='petugas/index.php';</script>";
+                    document.location.href='petugas/index_databuku.php';</script>";
                 } elseif ($level == 'pengunjung') {
                     echo "<script>
                     alert('Login sukses! Selamat Datang di UniLibrary.');
-                    document.location.href='pengunjung/index.php';</script>"; 
+                    document.location.href='pengunjung/index_pengunjung.php';</script>"; 
                 }
             } else {
                 echo "<script>
@@ -75,6 +75,7 @@ $db->close();
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
+                    <h1 style="text-align: center; margin-top: 100px; color: white;">UniLibrary</h1>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-5">

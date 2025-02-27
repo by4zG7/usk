@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
                 </div>
             </form>
             <div class="small" style="color: white">
-                Selamat datang, 
                 <?php
                 $conn = mysqli_connect('localhost', 'root', '', 'perpustakaan');
                 if (!$conn) {
@@ -67,9 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="../login.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -80,20 +77,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="../pengunjung/index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                            <a class="nav-link" href="../petugas/index_databuku.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                Data Buku
                             </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <a class="nav-link" href="../petugas/index_datamember.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                Data Member
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.php">Static Navigation</a>
-                                </nav>
-                            </div>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 </nav>
@@ -102,6 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
                     </div>
                 </nav>
             </div>
+            <!-- Content -->
             <div id="layoutSidenav">
             <div id="layoutSidenav_content">
             <main>
@@ -123,11 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
                         <div class="mb-3">
                             <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
                             <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="stok" class="form-label">Stok</label>
-                            <input type="number" class="form-control" id="stok" name="stok" required>
-                        </div>
+                        </div> 
                         <button type="submit" name="tambah_buku" class="btn btn-primary">Tambah</button>
                     </form>
                 </div>

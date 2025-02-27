@@ -1,25 +1,25 @@
-# Aplikasi Perpustakaan
+# UniLibrary
 
-Aplikasi Perpustakaan adalah sebuah aplikasi yang dibuat untuk memudahkan pengelolaan perpustakaan. Aplikasi ini dibuat menggunakan bahasa pemprograman PHP dan database MySQL.
+Aplikasi Perpustakaan yang dibuat oleh [Muhammad Abyaz Zayn - Kelas XII PPLG 1] sebagai bukti Ujian Sertifikasi Kompetensi Skema Pemrogram Junior.
+Aplikasi ini dibuat menggunakan bahasa pemrograman PHP (Native) dan database MySQL
 
 ## Fitur
 
-- Login dan Register
+- Login
 - Daftar Buku
+
+Sebagai Petugas:
+
 - Tambah Buku
 - Edit Buku
 - Hapus Buku
+
+Sebagai Pelanggan
+
 - Peminjaman Buku
-- Pengembalian Buku
-- Riwayat Peminjaman
-- Riwayat Pengembalian
-
-## Instalasi
-
-1. Download atau clone repository ini
-2. Import database yang terdapat pada folder `db` ke MySQL
-3. Konfigurasi koneksi database pada file `config/koneksi.php`
-4. Jalankan aplikasi pada browser
+  <!-- - Pengembalian Buku -->
+  <!-- - Riwayat Peminjaman -->
+  <!-- - Riwayat Pengembalian -->
 
 ## Penggunaan
 
@@ -28,7 +28,3 @@ Aplikasi Perpustakaan adalah sebuah aplikasi yang dibuat untuk memudahkan pengel
 3. Pilih menu yang diinginkan
 4. Isi form yang di sediakan
 5. Klik tombol submit untuk menyimpan data
-
-## Kontribusi
-
-Aplikasi ini dibuat oleh [Nama Anda]. Jika Anda ingin berkontribusi pada aplikasi ini, silahkan membuat pull request pada repository ini.
