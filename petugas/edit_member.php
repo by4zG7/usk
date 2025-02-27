@@ -6,50 +6,50 @@ include "../config/controller.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$buku = [];
-// Cek apakah ada ID buku di URL atau di POST data (jika form sudah disubmit)
-if (isset($_GET['id_buku']) || (isset($_POST['id_buku']) && !isset($_POST['edit_buku']))) {
-    $id = isset($_GET['id_buku']) ? $_GET['id_buku'] : $_POST['id_buku'];
+$member = [];
+// Cek apakah ada ID member di URL atau di POST data (jika form sudah disubmit)
+if (isset($_GET['id_member']) || (isset($_POST['id_member']) && !isset($_POST['edit_member']))) {
+    $id = isset($_GET['id_member']) ? $_GET['id_member'] : $_POST['id_member'];
     
     // Pastikan ID tidak kosong
     if (empty($id)) {
         echo "<script>
-        alert('ID buku kosong.');
-        document.location.href='index_databuku.php';</script>";
+        alert('ID member kosong.');
+        document.location.href='index_datamember.php';</script>";
         exit();
     }
     
-    $buku = get_buku_by_id($id);
+    $member = get_member_by_id($id);
     
-    // Debug: cek hasil dari fungsi get_buku_by_id()
-    // echo "<pre>"; print_r($buku); echo "</pre>";
+    // Debug: cek hasil dari fungsi get_member_by_id()
+    // echo "<pre>"; print_r($member); echo "</pre>";
     
-    if (!$buku) {
+    if (!$member) {
         echo "<script>
-        alert('Data buku dengan ID ".$id." tidak ditemukan.');
-        document.location.href='index_databuku.php';</script>";
+        alert('Data member dengan ID ".$id." tidak ditemukan.');
+        document.location.href='index_datamember.php';</script>";
         exit();
     }
 } else {
-    // Jika tidak ada ID buku di URL dan bukan form yang disubmit, redirect ke halaman daftar buku
-    if (!isset($_POST['edit_buku'])) {
+    // Jika tidak ada ID member di URL dan bukan form yang disubmit, redirect ke halaman daftar member
+    if (!isset($_POST['edit_member'])) {
         echo "<script>
-        alert('ID buku tidak diberikan.');
-        document.location.href='index_databuku.php';</script>";
+        alert('ID member tidak diberikan.');
+        document.location.href='index_datamember.php';</script>";
         exit();
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_buku'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_member'])) {
     // Perbaikan: Menggunakan $_POST langsung sebagai parameter sesuai dengan definisi di app.php
-    if (edit_buku($_POST) > 0) {
+    if (edit_member($_POST) > 0) {
         echo "<script>
         alert('Data berhasil diubah.');
-        document.location.href='index_databuku.php';</script>";
+        document.location.href='index_datamember.php';</script>";
     } else {
         echo "<script>
         alert('Data gagal diubah.');
-        document.location.href='index_databuku.php';</script>";
+        document.location.href='index_datamember.php';</script>";
     }
 }
 ?>
@@ -136,33 +136,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_buku'])) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-            <h2 class="mb-4">Edit Buku</h2>
+            <h2 class="mb-4">Edit Member</h2>
             <form action="" method="POST">
-                <input type="hidden" name="id_buku" value="<?php echo isset($buku['id_buku']) ? htmlspecialchars($buku['id_buku']) : ''; ?>">
+                <input type="hidden" name="id_member" value="<?php echo isset($member['id_member']) ? htmlspecialchars($member['id_member']) : ''; ?>">
                 <div class="mb-3">
-                    <label for="judul" class="form-label">Judul</label>
-                    <input type="text" class="form-control" id="judul" name="judul" 
-                           value="<?php echo isset($buku['judul']) ? htmlspecialchars($buku['judul']) : ''; ?>" required>
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="nama" name="nama" 
+                           value="<?php echo isset($member['nama']) ? htmlspecialchars($member['nama']) : ''; ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="penulis" class="form-label">Penulis</label>
-                    <input type="text" class="form-control" id="penulis" name="penulis" 
-                           value="<?php echo isset($buku['penulis']) ? htmlspecialchars($buku['penulis']) : ''; ?>" required>
+                    <label for="telp" class="form-label">No. Telp</label>
+                    <input type="text" class="form-control" id="telp" name="telp" 
+                           value="<?php echo isset($member['telp']) ? htmlspecialchars($member['telp']) : ''; ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="penerbit" class="form-label">Penerbit</label>
-                    <input type="text" class="form-control" id="penerbit" name="penerbit" 
-                           value="<?php echo isset($buku['penerbit']) ? htmlspecialchars($buku['penerbit']) : ''; ?>" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" 
+                           value="<?php echo isset($member['email']) ? htmlspecialchars($member['email']) : ''; ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
-                    <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" 
-                           value="<?php echo isset($buku['tahun_terbit']) ? htmlspecialchars($buku['tahun_terbit']) : ''; ?>" required>
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <textarea class="form-control" id="alamat" name="alamat" required><?php echo isset($member['alamat']) ? htmlspecialchars($member['alamat']) : ''; ?></textarea>
                 </div>
-            <button type="submit" name="edit_buku" class="btn btn-primary">Simpan Perubahan</button>
+            <button type="submit" name="edit_member" class="btn btn-primary">Simpan Perubahan</button>
         </form>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-</body>
+    </body>
 </html>
