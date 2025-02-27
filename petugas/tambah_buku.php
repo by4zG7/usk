@@ -6,11 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
     if (add_buku($_POST) > 0) {
         echo "<script>
         alert('Data berhasil ditambahkan.');
-        document.location.href='index.php';</script>";
+        document.location.href='index_databuku.php';</script>";
     } else {
         echo "<script>
         alert('Data gagal ditambahkan.');
-        document.location.href='index.php';</script>";
+        document.location.href='index_databuku.php';</script>";
     }
 }
 ?>
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
                             </a>
                             <a class="nav-link" href="../petugas/index_datamember.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Data Member
+                                Data Pelanggan
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -93,37 +93,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_buku'])) {
                     </div>
                 </nav>
             </div>
-            <!-- Content -->
-            <div id="layoutSidenav">
+            <!-- Isi halaman -->
             <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <h1 class="h3 mb-4 text-gray-800">Tambah Buku</h1>
-                    <form action="tambah_buku.php" method="POST">
-                        <div class="mb-3">
-                            <label for="judul" class="form-label">Judul</label>
-                            <input type="text" class="form-control" id="judul" name="judul" required>
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="display-6 mt-4 fw-bold">Tambah Buku</h1><hr>
+                        <form action="tambah_buku.php" method="POST">
+                            <div class="mb-3">
+                                <label for="judul" class="form-label">Judul</label>
+                                <input type="text" class="form-control" id="judul" name="judul" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="penulis" class="form-label">Penulis</label>
+                                <input type="text" class="form-control" id="penulis" name="penulis" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="penerbit" class="form-label">Penerbit</label>
+                                <input type="text" class="form-control" id="penerbit" name="penerbit" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
+                                <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" required>
+                            </div> 
+                            <button type="submit" name="tambah_buku" class="btn btn-primary">Tambah</button>
+                        </form>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Uni 2025</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="penulis" class="form-label">Penulis</label>
-                            <input type="text" class="form-control" id="penulis" name="penulis" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="penerbit" class="form-label">Penerbit</label>
-                            <input type="text" class="form-control" id="penerbit" name="penerbit" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
-                            <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" required>
-                        </div> 
-                        <button type="submit" name="tambah_buku" class="btn btn-primary">Tambah</button>
-                    </form>
-                </div>
-            </main>
-            </div>
+                    </div>
+                </footer>
             </div>
         </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="../js/sb-admin-2.min.js"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    </body>
 </html>

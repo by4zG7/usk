@@ -80,7 +80,7 @@ include '../config/controller.php';
                             </a>
                             <a class="nav-link" href="../petugas/index_datamember.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Data Member
+                                Data Pelanggan
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -90,10 +90,11 @@ include '../config/controller.php';
                     </div>
                 </nav>
             </div>
+            <!-- Isi halaman -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                    <h1 class="display-8 mt-4 fw-bolder">
+                    <h4 class="display-8 mt-4 ">
                             Selamat Datang, 
                             <?php
                             $conn = mysqli_connect('localhost', 'root', '', 'perpustakaan');
@@ -113,8 +114,8 @@ include '../config/controller.php';
 
                             mysqli_close($conn);
                             ?>
-                        </h1>   
-                        <br>
+                        </h4>
+                        <h2 class="display-6 mt-4 fw-bold">Data Buku</h2><hr>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <a href="tambah_buku.php" class="btn btn-primary">Tambah Buku</a>
@@ -124,9 +125,9 @@ include '../config/controller.php';
                                     <div class="d-flex justify-content-end mb-3">
                                         
                                     </div>
-                                    
                                         <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Judul</th>
                                             <th>Penulis</th>
                                             <th>Penerbit</th>
@@ -140,10 +141,12 @@ include '../config/controller.php';
                                             $conn = mysqli_connect('localhost', 'root', '', 'perpustakaan');
                                             $sql = "SELECT * FROM buku";
                                             $result = mysqli_query($conn, $sql);
+                                            $no = 1;
                                             
                                             if (mysqli_num_rows($result) > 0) {
                                                 while($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>
+                                                        <td>" . $no . "</td>
                                                         <td>" . (isset($row["judul"]) ? $row["judul"] : '') . "</td>
                                                         <td>" . (isset($row["penulis"]) ? $row["penulis"] : '') . "</td>
                                                         <td>" . (isset($row["penerbit"]) ? $row["penerbit"] : '') . "</td>
@@ -154,6 +157,7 @@ include '../config/controller.php';
                                                             <a href='hapus_buku.php?id=" . $row['id_buku'] . "' class='btn btn-danger'>Hapus</a>
                                                         </td>
                                                     </tr>";
+                                                    $no++;
                                                 }
                                             } else {
                                                 echo "0 results";

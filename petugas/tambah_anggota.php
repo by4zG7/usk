@@ -1,3 +1,20 @@
+<?php
+session_start(); // Mulai session
+include '../config/controller.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah_member'])) {
+    if (add_member($_POST) > 0) {
+        echo "<script>
+        alert('Data berhasil ditambahkan.');
+        document.location.href='index_datamember.php';</script>";
+    } else {
+        echo "<script>
+        alert('Data gagal ditambahkan.');
+        document.location.href='index_datamember.php';</script>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -66,7 +83,7 @@
                             </a>
                             <a class="nav-link" href="../petugas/index_datamember.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Data Member
+                                Data Pelanggan
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -76,4 +93,48 @@
                     </div>
                 </nav>
             </div>
-            <!-- Content -->
+            <!-- Isi halaman -->
+            <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                <h1 class="display-6 mt-4 fw-bold">Tambah Anggota</h1><hr>
+                    <form action="tambah_anggota.php" method="POST">
+                        <div class="mb-3">
+                            <label for="nama_anggota" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="nama_anggota" name="nama_anggota" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamat" name="alamat" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tgl_gabung" class="form-label">Tanggal Bergabung</label>
+                            <input type="date" class="form-control" id="tgl_gabung" name="tgl_gabung" value="<?php echo date('Y-m-d'); ?>" required>
+                        </div>
+                        <button type="submit" name="tambah_member" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Uni 2025</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            </div>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
+</body>
+</html>

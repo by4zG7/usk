@@ -80,7 +80,7 @@ include '../config/controller.php';
                             </a>
                             <a class="nav-link" href="../petugas/index_datamember.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Data Member
+                                Data Pelanggan
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -90,4 +90,82 @@ include '../config/controller.php';
                     </div>
                 </nav>
             </div>
-            <!-- Content -->
+            <!-- Isi halaman -->
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h2 class="display-6 mt-4 fw-bold">Data Pelanggan</h2><hr>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <a href="tambah_anggota.php" class="btn btn-primary">Tambah Pelanggan</a>
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table table-bordered">
+                                    <div class="d-flex justify-content-end mb-3">
+                                    </div>
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>Email</th>
+                                            <th>Tanggal Bergabung</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $conn = mysqli_connect('localhost', 'root', '', 'perpustakaan');
+                                            $sql = "SELECT * FROM anggota";
+                                            $result = mysqli_query($conn, $sql);
+                                            $no = 1;
+                                            
+                                            if (mysqli_num_rows($result) > 0) {
+                                                while($row = mysqli_fetch_assoc($result)) {
+                                                    echo "<tr>
+                                                        <td>" . $no . "</td>
+                                                        <td>" . (isset($row["nama_anggota"]) ? $row["nama_anggota"] : '') . "</td>
+                                                        <td>" . (isset($row["alamat"]) ? $row["alamat"] : '') . "</td>
+                                                        <td>" . (isset($row["email"]) ? $row["email"] : '') . "</td>
+                                                        <td>" . (isset($row["tgl_gabung"]) ? $row["tgl_gabung"] : '') . "</td>
+                                                        <td>" . (isset($row["status"]) ? $row["status"] : '') . "</td>
+                                                        <td>
+                                                            <a href='edit_member.php?id=" . $row['id_anggota'] . "' class='btn btn-info'>Edit</a>
+                                                            <a href='hapus_member.php?id=" . $row['id_anggota'] . "' class='btn btn-danger'>Hapus</a>
+                                                        </tr>";
+                                                    $no++;
+                                                }
+                                            } else {
+                                                echo "0 results";
+                                            }
+                                            mysqli_close($conn);
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    </body>
+</html>
+
+                                            

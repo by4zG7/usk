@@ -2,6 +2,7 @@
 session_start();
 include "../config/controller.php";
 
+$buku = isset($buku) ? $buku : [];
 if (isset($_GET['id_buku'])) {
     $id = $_GET['id_buku'];
     $buku = get_buku_by_id($id);
@@ -14,20 +15,15 @@ if (isset($_GET['id_buku'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_buku'])) {
-    $id_buku = $_GET['id_buku'];
-    $judul = $_POST['judul'];
-    $penulis = $_POST['penulis'];
-    $penerbit = $_POST['penerbit'];
-    $tahun_terbit = $_POST['tahun_terbit'];
-
-    if (edit_buku($id_buku, $judul, $penulis, $penerbit, $tahun_terbit) > 0) {
+    // Perbaikan: Menggunakan $_POST langsung sebagai parameter sesuai dengan definisi di app.php
+    if (edit_buku($_POST) > 0) {
         echo "<script>
         alert('Data berhasil diubah.');
-        document.location.href='index_admin.php';</script>";
+        document.location.href='index_databuku.php';</script>";
     } else {
         echo "<script>
         alert('Data gagal diubah.');
-        document.location.href='index_admin.php';</script>";
+        document.location.href='index_databuku.php';</script>";
     }
 }
 ?>
@@ -100,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_buku'])) {
                             </a>
                             <a class="nav-link" href="../petugas/index_datamember.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Data Member
+                                Data Pelanggan
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
@@ -110,28 +106,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_buku'])) {
                     </div>
                 </nav>
             </div>
-            <!-- Content -->
+            <!-- Isi halaman -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
             <h2 class="mb-4">Edit Buku</h2>
             <form action="" method="POST">
-                <input type="hidden" name="id_buku" value="<?php echo htmlspecialchars($buku['id_buku'] ?? ''); ?>">
+                <input type="hidden" name="id_buku" value="<?php echo $buku['id_buku']; ?>">
                 <div class="mb-3">
                     <label for="judul" class="form-label">Judul</label>
-                    <input type="text" class="form-control" id="judul" name="judul" value="<?php echo htmlspecialchars($buku['judul']); ?>" required>
+                    <input type="text" class="form-control" id="judul" name="judul" value="<?php echo $buku['judul']; ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="penulis" class="form-label">Penulis</label>
-                    <input type="text" class="form-control" id="penulis" name="penulis" value="<?php echo htmlspecialchars($buku['penulis']); ?>" required>
+                    <input type="text" class="form-control" id="penulis" name="penulis" value="<?php echo $buku['penulis']; ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="penerbit" class="form-label">Penerbit</label>
-                    <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?php echo htmlspecialchars($buku['penerbit']); ?>" required>
+                    <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?php echo $buku['penerbit']; ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
-                    <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" value="<?php echo htmlspecialchars($buku['tahun_terbit']); ?>" required>
+                    <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit" value="<?php echo $buku['tahun_terbit']; ?>" required>
                 </div>
             <button type="submit" name="edit_buku" class="btn btn-primary">Simpan Perubahan</button>
         </form>

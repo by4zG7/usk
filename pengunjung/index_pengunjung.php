@@ -2,7 +2,7 @@
 session_start(); // Mulai session login
 if (isset($_SESSION['level'])) { 
     if ($_SESSION['level'] == 1) { // Jika level 1 = Admin - level 2 = pengunjung
-        header("Location: petugas/index_databuku.php");
+        header("Location: petugas/index_pengunjung.php");
     } elseif ($_SESSION['level'] == 2) {
         header("Location: pengunjung/index_pengunjung.php");
     }
@@ -119,12 +119,10 @@ include '../config/controller.php';
                             <div class="card-body">
                                 <table id="datatablesSimple" class="table table-bordered">
                                     <div class="d-flex justify-content-end mb-3">
-                                        
                                     </div>
-                                    
                                         <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th>No.</th>    
                                             <th>Judul</th>
                                             <th>Penulis</th>
                                             <th>Penerbit</th>
@@ -138,19 +136,22 @@ include '../config/controller.php';
                                             $conn = mysqli_connect('localhost', 'root', '', 'perpustakaan');
                                             $sql = "SELECT * FROM buku";
                                             $result = mysqli_query($conn, $sql);
+                                            $no = 1;
                                             
                                             if (mysqli_num_rows($result) > 0) {
                                                 while($row = mysqli_fetch_assoc($result)) {
                                                     echo "<tr>
+                                                        <td>" . $no . "</td>
                                                         <td>" . (isset($row["judul"]) ? $row["judul"] : '') . "</td>
                                                         <td>" . (isset($row["penulis"]) ? $row["penulis"] : '') . "</td>
                                                         <td>" . (isset($row["penerbit"]) ? $row["penerbit"] : '') . "</td>
                                                         <td>" . (isset($row["tahun_terbit"]) ? $row["tahun_terbit"] : '') . "</td>
                                                         <td>" . (isset($row["status"]) ? $row["status"] : '') . "</td>
                                                         <td>
-                                                            <a href='?id=" . $row['id_buku'] . "' class='btn btn-success'>Pinjam</a>
+                                                            <a href='pinjam_buku.php'?id=" . $row['id_buku'] . "' class='btn btn-success'>Pinjam</a>
                                                         </td>
                                                     </tr>";
+                                                    $no++;
                                                 }
                                             } else {
                                                 echo "0 results";
@@ -166,7 +167,7 @@ include '../config/controller.php';
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div class="text-muted">Copyright &copy; Uni 2025</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
